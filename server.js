@@ -3,8 +3,8 @@
 var express = require('express');
 var fs      = require('fs');
 var bodyParser = require("body-parser");
-var mongoose = require("mongoose");
 var emailRoutes = require("./routes/email_route.js");
+var dbConnection = require("./db/db_connection.js");
 
 
 /**

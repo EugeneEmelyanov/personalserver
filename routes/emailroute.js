@@ -1,7 +1,7 @@
 /**
  * Created by eugene on 8/20/15.
  */
-var EmailModel = require("../models/email_model.js");
+var EmailModel = require("../models/emailmodel.js");
 var express = require('express');
 var router = express.Router();
 

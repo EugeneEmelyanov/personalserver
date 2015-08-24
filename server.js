@@ -3,8 +3,10 @@
 var express = require('express');
 var fs      = require('fs');
 var bodyParser = require("body-parser");
-var emailRoutes = require("./routes/email_route.js");
-var dbConnection = require("./db/db_connection.js");
+var emailRoutes = require("./routes/emailroute");
+var dbConnection = require("./db/mongooseconfig");
+var dbRoutes = require('./routes/setupdbroute')
+var presetRoute = require('./routes/presetroute');
 
 
 /**
@@ -26,7 +28,7 @@ var SampleApp = function() {
     self.setupVariables = function() {
         //  Set the environment variables we need.
         self.ipaddress = process.env.OPENSHIFT_NODEJS_IP;
-        self.port      = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+        self.port      = process.env.OPENSHIFT_NODEJS_PORT || 8082;
 
         if (typeof self.ipaddress === "undefined") {
             //  Log errors on OpenShift but continue w/ 127.0.0.1 - this
@@ -76,6 +78,8 @@ var SampleApp = function() {
      */
     self.createRoutes = function() {
         self.app.use('/api', emailRoutes);
+        self.app.use('/db', dbRoutes);
+        self.app.use('/api/v1', presetRoute);
     };
 
     /**
@@ -84,6 +88,13 @@ var SampleApp = function() {
     self.setUpMiddleware = function() {
         self.app.use(bodyParser.json());
         self.app.use(bodyParser.urlencoded());
+    }
+
+    /**
+     * Initialize DB.
+     */
+    self.setUpDb = function() {
+        dbConnection();
     }
 
 
@@ -96,8 +107,8 @@ var SampleApp = function() {
         self.app = express();
 
         self.setUpMiddleware();
+        self.setUpDb();
         self.createRoutes();
-
     };
 
 

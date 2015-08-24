@@ -1,0 +1,8 @@
+{
+    "radialGradientSizes": [
+        {"name":"farthest-side", "value": "farthest-side"},
+        {"name":"closest-side", "value": "closest-side"},
+        {"name":"closest-corner", "value": "closest-corner"},
+        {"name":"farthest-corner", "value": "farthest-corner"}
+    ]
+}

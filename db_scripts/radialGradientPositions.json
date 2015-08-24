@@ -1,0 +1,13 @@
+{
+    "radialGradientPositions": [
+        {"name": "top left", "value": "left top", "safariValue":["left top, 0", "right bottom, 515"]},
+        {"name": "top center", "value": "center top", "safariValue":["left top, 0", "right bottom, 258"]},
+        {"name": "top right", "value": "right top", "safariValue":["left top, 0", "right bottom, 515"]},
+        {"name": "middle left", "value": "left center", "safariValue":["left top, 0", "right bottom, 515"]},
+        {"name": "middle center", "value": "center", "safariValue":["left top, 0", "right bottom, 258"]},
+        {"name": "middle right", "value": "right center", "safariValue":["left top, 0", "right bottom, 515"]},
+        {"name": "bottom left", "value": "left bottom", "safariValue":["left top, 0", "right bottom, 515"]},
+        {"name": "bottom center", "value": "center bottom", "safariValue":["left top, 0", "right bottom, 258"]},
+        {"name": "bottom right", "value": "right bottom", "safariValue":["left top, 0", "right bottom, 515"]}
+    ]
+}

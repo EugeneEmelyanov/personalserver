@@ -1,0 +1,73 @@
+{ "presets" :[
+    [
+      {"location": 0,
+        "color": "#008080"},
+      {"location": 25,
+        "color": "#FFFFFF"},
+      {"location": 50,
+        "color": "#05C1FF"},
+      {"location": 75,
+        "color": "#FFFFFF"},
+      {"location":100,
+        "color": "#005757"}
+    ],
+ [
+      {"location": 0,
+        "color": "#FF0000"},
+      {"location":100,
+        "color": "#000000"}
+    ]
+ ,[
+      {"location": 0,
+        "color": "#00FF00"},
+      {"location":100,
+        "color": "#FF0000"}
+    ]
+  ,[
+      {"location": 0,
+        "color": "#FFFFFF"},
+      {"location":47,
+        "color": "#F6F6F6"},
+      {
+        "location": 100,
+        "color": "#EDEDED"
+      }
+    ],
+  [
+      {"location": 0,
+        "color": "#0DFF00"},
+      {"location":50,
+        "color": "#FFFF00"},
+      {
+        "location": 100,
+        "color": "#FF0000"
+      }
+    ],
+  [
+      {"location": 0,
+        "color": "#A7CFDF"},
+      {"location":100,
+        "color": "#23538A"}
+    ]
+,
+  [
+    {"location": 0,
+      "color": "#FF0000"},
+    {"location":50,
+      "color": "#FFFF00"},
+    {
+      "location": 100,
+      "color": "#FF0000"
+    }
+  ],
+  [
+    {"location": 0,
+      "color": "#F8FFE8"},
+    {"location":50,
+      "color": "#E3F5AB"},
+    {
+      "location": 100,
+      "color": "#B7DF2D"
+    }
+  ]
+]}

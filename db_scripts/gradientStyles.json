@@ -1,0 +1,6 @@
+{
+    "gradientStyles": [
+        {"name": "Linear", "value": "linear-gradient"},
+        {"name": "Radial", "value": "radial-gradient"}
+    ]
+}

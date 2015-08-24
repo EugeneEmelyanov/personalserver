@@ -1,0 +1,17 @@
+/* IE10+ */
+background-image: -ms-%gradientType(%gradientStyle, %gradientStops);
+
+/* Mozilla Firefox */
+background-image: -moz-%gradientType(%gradientStyle, %gradientStops);
+
+/* Opera */
+background-image: -o-%gradientType(%gradientStyle, %gradientStops);
+
+/* Webkit (Safari/Chrome 10) */
+background-image: -webkit(%safariGradientType, %safariGradientStyle, %safariGradientStops);
+
+/* Webkit (Chrome 11+) */
+background-image: -webkit-%gradientType(%gradientStyle, %gradientStops);
+
+/* W3C Markup */
+background-image: %gradientType(%w3cGradientStyle, %gradientStops);

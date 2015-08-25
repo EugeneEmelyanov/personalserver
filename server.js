@@ -7,6 +7,7 @@ var emailRoutes = require("./routes/emailroute");
 var dbConnection = require("./db/mongooseconfig");
 var dbRoutes = require('./routes/setupdbroute')
 var presetRoute = require('./routes/presetroute');
+var gradientRoute = require("./routes/gradientroute");
 
 
 /**
@@ -80,6 +81,7 @@ var SampleApp = function() {
         self.app.use('/api', emailRoutes);
         self.app.use('/db', dbRoutes);
         self.app.use('/api/v1', presetRoute);
+        self.app.use('/api/v1', gradientRoute);
     };
 
     /**

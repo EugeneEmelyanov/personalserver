@@ -8,16 +8,22 @@
 var express = require('express');
 var router = express.Router();
 var CONSTANTS = require("../models/gradientconstants");
+
 var PresetModel = require('../models/presetmodel');
+var presetJSON = require('../db_scripts/presets.json');
+
 var GradientAttributeModel = require("../models/gradientattributemodel");
-var initialScirpt = require('../db_scripts/presets.json');
 var gradientStylesJSON = require('../db_scripts/gradientStyles.json');
 var radialGradientSizeJSON = require("../db_scripts/radialGradientSizes.json");
+
+var GradientDirectionModel = require("../models/gradientdirectionmodel");
+var linearDirectionsJSON = require("../db_scripts/linearGradientDirections");
+var radialGradientPositionsJSON = require("../db_scripts/radialGradientPositions");
 
 
 router.route("/create/presets").get(function (req, resp) {
 
-    var presetsCollection = initialScirpt.presets.map(function (item) {
+    var presetsCollection = presetJSON.presets.map(function (item) {
         var preset = new PresetModel();
         preset.preset = item;
         return preset;
@@ -59,6 +65,38 @@ router.route("/create/styles").get(function (req, res) {
             res.send(items);
         }
     }
-})
+});
+
+router.route("/create/directions").get(function (req, res) {
+    var directionsCollection = linearDirectionsJSON.linearGradientDirections.map(function (item) {
+        return new GradientDirectionModel({
+            name: item.name,
+            value: item.value,
+            safariValue: item.safariValue,
+            type: CONSTANTS.GRADIENT_LINEAR_DIRECTION
+        });
+
+
+    });
+
+    var positionsCollection = radialGradientPositionsJSON.radialGradientPositions.map(function (item) {
+        return new GradientDirectionModel({
+            name: item.name,
+            value: item.value,
+            safariValue: item.safariValue,
+            type: CONSTANTS.GRADIENT_RADIAL_POSTION
+        });
+    });
+
+    GradientDirectionModel.create(directionsCollection.concat(positionsCollection), onInsert);
+
+    function onInsert(err, items) {
+        if (err) {
+            res.send({message: "Error creating directions"});
+        } else {
+            res.send(items);
+        }
+    }
+});
 
 module.exports = router;

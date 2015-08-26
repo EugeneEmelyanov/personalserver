@@ -18,4 +18,15 @@ router.route('/presets').get(function(req, resp) {
     })
 });
 
+router.route("/presets").put(function(req, resp) {
+    var model = req.body.preset;
+    PresetModel.create(model, function(err, item) {
+        if (err) {
+            resp.send({message: "Error in creating preset. " + err});
+        } else {
+            resp.send({id: item._id});
+        }
+    });
+});
+
 module.exports = router;

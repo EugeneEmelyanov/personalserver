@@ -4,7 +4,8 @@ var express = require('express');
 var fs      = require('fs');
 var bodyParser = require("body-parser");
 var emailRoutes = require("./routes/emailroute");
-var dbConnection = require("./db/mongooseconfig");
+var dbConnection = require("./config/mongooseconfig");
+var transport = require("./config/nodemailerconfig");
 var dbRoutes = require('./routes/setupdbroute')
 var presetRoute = require('./routes/presetroute');
 var gradientRoute = require("./routes/gradientroute");
@@ -29,7 +30,7 @@ var SampleApp = function() {
     self.setupVariables = function() {
         //  Set the environment variables we need.
         self.ipaddress = process.env.OPENSHIFT_NODEJS_IP;
-        self.port      = process.env.OPENSHIFT_NODEJS_PORT || 8082;
+        self.port      = process.env.OPENSHIFT_NODEJS_PORT || 8083;
 
         if (typeof self.ipaddress === "undefined") {
             //  Log errors on OpenShift but continue w/ 127.0.0.1 - this
@@ -78,7 +79,7 @@ var SampleApp = function() {
      *  Create the routing table entries + handlers for the application.
      */
     self.createRoutes = function() {
-        self.app.use('/api', emailRoutes);
+        self.app.use('/api/v1', emailRoutes);
         self.app.use('/db', dbRoutes);
         self.app.use('/api/v1', presetRoute);
         self.app.use('/api/v1', gradientRoute);

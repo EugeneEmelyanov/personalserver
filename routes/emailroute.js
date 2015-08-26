@@ -1,8 +1,8 @@
 /**
  * Created by eugene on 8/20/15.
  */
-var EmailModel = require("../models/emailmodel.js");
 var express = require('express');
+var transport = require("../config/nodemailerconfig");
 var router = express.Router();
 
 // middleware specific to this router
@@ -11,19 +11,20 @@ router.use(function timeLog(req, res, next) {
     next();
 });
 
-router.route('/email').get(function(req, resp) {
-    resp.send({message: "test message"});
-})
-
 router.route('/email').post(function(req, resp) {
-    var email = new EmailModel(req.body);
-
-    email.save(function(err) {
+    var body = req.body;
+    transport.sendMail({
+        from: body.email,
+        to: "eugene.v.emelyanov@gmail.com",
+        subject: body.name + " want to get in touch.",
+        text: body.message
+    }, function(err, data) {
         if (err) {
-            return resp.send(err);
+            resp.send({message: "Error sending email: " + err});
+        } else {
+            resp.send(data);
         }
-        resp.send({message: "Email was sent"});
-    })
+    });
 });
 
 module.exports = router;

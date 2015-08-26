@@ -26,7 +26,8 @@
     "body-parser": "~1.0.0",
     "cors": "^2.7.1",
     "express": "~4.2.0",
-    "mongoose": "~3.8.11"
+    "mongoose": "~3.8.11",
+    "nodemailer": "^1.4.0"
   },
   "devDependencies": {},
   "bundleDependencies": [],

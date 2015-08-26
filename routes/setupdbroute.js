@@ -3,7 +3,7 @@
  */
 
 /*
- Create initial db structure. Used mainly for testing and to test data model.
+ Create initial config structure. Used mainly for testing and to test data model.
  */
 var express = require('express');
 var router = express.Router();

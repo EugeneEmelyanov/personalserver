@@ -10,7 +10,7 @@ function createTransport() {
         service: "gmail",
         auth: {
             user: "nodemailertransport@gmail.com",
-            pass: "nodemailertransport"
+            pass: "nodemailertransport1"
         }
     });
 }

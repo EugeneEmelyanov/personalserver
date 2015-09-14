@@ -27,4 +27,8 @@ router.route('/email').post(function(req, resp) {
     });
 });
 
+router.route('/ping').get(function(req, resp) {
+    resp.send("Pong");
+});
+
 module.exports = router;

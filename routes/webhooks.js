@@ -45,7 +45,9 @@ router.route("/webhook").post(function(req, resp) {
 
 router.route("/carcode-webhook").post(function(req, resp){
     var inquiryId = req.body.inquiryId;
-    if (inquiryId === 1442766) {
+    var from = req.body.from;
+    console.log(from);
+    if (inquiryId === 1442766 && from === "+16264145621" ) {
         var text = req.body.body;
         var sender = text.split("@")[0];
         var body = text.split("@")[1];

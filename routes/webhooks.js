@@ -34,7 +34,7 @@ router.route("/webhook").post(function(req, resp) {
                 .then(function(response) {
                     // Get the response body
                     console.log("Succesfully post to carcode");
-                    res.sendStatus(200);
+                    resp.sendStatus(200);
                 }, function(err){
                     console.log(err);
                     resp.sendStatus(500);

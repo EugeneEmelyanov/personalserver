@@ -33,7 +33,7 @@ router.route("/webhook").post(function(req, resp) {
             });
             setTimeout(function(){
                 console.log("Succesfully post to carcode");
-                resp.sendStatus(200);
+                resp.send("Ok");
 
             }, 100);
         }
@@ -72,10 +72,10 @@ function sendTextMessage(sender, text, resp) {
     }, function(error, response, body) {
         if (error) {
             console.log('Error sending message: ', error);
-            resp.sendStatus(500);
+            resp.send("Ok");
         } else if (response.body.error) {
             console.log('Error: ', response.body.error);
-            resp.sendStatus(500);
+            resp.send("Ok");
         }
     });
 }

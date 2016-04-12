@@ -9,6 +9,7 @@ var transport = require("./config/nodemailerconfig");
 var dbRoutes = require('./routes/setupdbroute')
 var presetRoute = require('./routes/presetroute');
 var gradientRoute = require("./routes/gradientroute");
+var webhooks = require("./routes/webhooks.js");
 
 
 /**
@@ -83,6 +84,7 @@ var SampleApp = function() {
         self.app.use('/db', dbRoutes);
         self.app.use('/api/v1', presetRoute);
         self.app.use('/api/v1', gradientRoute);
+        self.app.use('/api/v1', webhooks);
     };
 
     /**

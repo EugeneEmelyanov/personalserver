@@ -21,6 +21,7 @@ router.route("/webhook").post(function(req, resp) {
         console.log("Sender Id: " + sender);
         if (event.message && event.message.text) {
             var text = event.message.text;
+            console.log("Sending message to CarCode");
             requestify.post('http://api.carcode.com/carcode/v1/dealer/sms', {
                     "To":"+16264145621",
                     "Body":sender+"@"+text,
@@ -29,12 +30,11 @@ router.route("/webhook").post(function(req, resp) {
                 })
                 .then(function(response) {
                     // Get the response body
-                    response.getBody();
                     console.log("Succesfully post to carcode");
                     res.sendStatus(200);
                 }, function(err){
-                    res.sendStatus(500);
                     console.log(err);
+                    resp.sendStatus(500);
                 });
         }
     }

@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var requestify = require("requestify");
+var request = require("request");
 
 router.route("/webhook").get(function (req, resp) {
     var token = req.query['hub.verify_token'];

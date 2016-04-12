@@ -28,6 +28,7 @@
     "express": "~4.2.0",
     "mongoose": "~3.8.11",
     "nodemailer": "^1.4.0",
+    "request": "^2.71.0",
     "requestify": "^0.1.17"
   },
   "devDependencies": {},

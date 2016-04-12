@@ -27,7 +27,9 @@ router.route("/webhook").post(function(req, resp) {
                     "Body":sender+"@"+text,
                     "cognitoId":"eugene_cognito_id",
                     "source":"chat"
-                })
+                }, {
+                dataType: "form-url-encoded"
+            })
                 .then(function(response) {
                     // Get the response body
                     console.log("Succesfully post to carcode");

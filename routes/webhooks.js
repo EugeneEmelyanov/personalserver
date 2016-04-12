@@ -51,7 +51,7 @@ router.route("/carcode-webhook").post(function(req, resp){
         sendTextMessage(sender, body, resp);
         console.log("Sender: "+sender + " Body " + body);
     } else {
-        console.log("Received message from carcode: " + req.body);
+        console.log("Received message from carcode: " + JSON.stringify(req.body));
     }
 });
 

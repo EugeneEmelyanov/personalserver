@@ -30,14 +30,10 @@ router.route("/webhook").post(function(req, resp) {
                     "source":"chat"
                 }, {
                 dataType: "form-url-encoded"
-            })
-                .then(function(response) {
+            }).then(function(response) {
                     // Get the response body
                     console.log("Succesfully post to carcode");
                     resp.sendStatus(200);
-                }, function(err){
-                    console.log(err);
-                    resp.sendStatus(500);
                 });
         }
     }

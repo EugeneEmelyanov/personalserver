@@ -47,6 +47,7 @@ router.route("/carcode-webhook").post(function(req, resp){
         var sender = text.split("@")[0];
         var body = text.split("@")[1];
         sendTextMessage(sender, body);
+        console.log("Sender: "+sender + " Body " + body);
     } else {
         console.log("Received message from carcode: " + req.body);
     }

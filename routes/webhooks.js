@@ -26,8 +26,7 @@ router.route("/webhook").post(function(req, resp) {
             requestify.post('http://api.carcode.com/carcode/v1/dealer/sms', {
                     "To":"+16264145621",
                     "Body":sender+"@"+text,
-                    "cognitoId":"eugene_cognito_id",
-                    "source":"chat"
+                    "From": "+15556667711"
                 }, {
                 dataType: "form-url-encoded"
             });

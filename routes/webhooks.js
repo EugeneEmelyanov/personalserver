@@ -49,7 +49,7 @@ router.route("/carcode-webhook").post(function(req, resp){
         var text = req.body.body;
         var sender = text.split("@")[0];
         var body = text.split("@")[1];
-        sendTextMessage(sender, body);
+        sendTextMessage(sender, body, resp);
         console.log("Sender: "+sender + " Body " + body);
     } else {
         console.log("Received message from carcode: " + req.body);
@@ -58,7 +58,7 @@ router.route("/carcode-webhook").post(function(req, resp){
 
 var token = "CAAMBADbdWl0BAD4W66NCngjHeWOi5Y44UcmQuZCYv0c0RSrYJThzmc3KcrTnsDGg32sklteKzfKo4c5XEp0cTZCJNQfcSvZCZAvZBadgiaT9xQ1bLkYvhZAEfZBoPR1SWpBrv9gJzEkK2eCijj7J8vSdTIdZAs4pZC0NsYRoXdHW19MD3dLXlfyPJ2mCpn6Rj7X3GUQAsK1FKrwZDZD";
 
-function sendTextMessage(sender, text) {
+function sendTextMessage(sender, text, resp) {
     messageData = {
         text:text
     }
@@ -73,8 +73,10 @@ function sendTextMessage(sender, text) {
     }, function(error, response, body) {
         if (error) {
             console.log('Error sending message: ', error);
+            resp.sendStatus(500);
         } else if (response.body.error) {
             console.log('Error: ', response.body.error);
+            resp.sendStatus(500);
         }
     });
 }

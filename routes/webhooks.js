@@ -9,34 +9,50 @@ router.route("/webhook").get(function (req, resp) {
     if (token === 'eugenes_secret_token') {
         resp.send(req.query['hub.challenge']);
         console.log("token is correct");
+    } else {
+        resp.error('Error, wrong validation token');
     }
-    resp.send('Error, wrong validation token');
 });
 
 router.route("/webhook").post(function(req, resp) {
     console.log("New message from facebook");
     var messaging_events = req.body.entry[0].messaging;
+    var success = false;
     for (var i = 0; i < messaging_events.length; i++) {
         var event = req.body.entry[0].messaging[i];
         var sender = event.sender.id;
         console.log("Sender Id: " + sender);
         if (event.message && event.message.text) {
             var text = event.message.text;
-            console.log("Sending message to CarCode");
-            requestify.post('http://api.carcode.com/carcode/v1/dealer/sms', {
+            console.log("Sending message to CarCode: " + text);
+            request({
+                url: 'http://api.carcode.com/carcode/v1/dealer/sms',
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: {
                     "To":"+16264145621",
-                    "Body":sender+"@"+text,
-                    "From": "+14159261311"
-                }, {
-                dataType: "form-url-encoded"
+                    "Body":text,
+                    "From":"",
+                    "source":"chat",
+                    "cognitoId":"Cognito_id"
+                }
+            }, function(error, response, body) {
+                if (error) {
+                    console.log('Error sending message: ', error);
+                } else {
+                    success = true;
+                }
             });
-            setTimeout(function(){
-                console.log("Succesfully post to carcode");
-                resp.send("Ok");
 
-            }, 100);
         }
     }
+    setTimeout(function(){
+        console.log("Succesfully post to carcode: " + success);
+        resp.send("Ok");
+
+    }, 200);
 });
 
 router.route("/carcode-webhook").post(function(req, resp){

@@ -31,12 +31,12 @@ router.route("/webhook").post(function(req, resp) {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: {
+                form: {
                     "To":"+16264145621",
-                    "Body":text,
+                    "Body":sender + "@" + text,
                     "From":"",
                     "source":"chat",
-                    "cognitoId":"Cognito_id"
+                    "cognitoId":"eugenes_cognito_id"
                 }
             }, function(error, response, body) {
                 if (error) {

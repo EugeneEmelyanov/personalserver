@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var requestify = require("requestify");
 var request = require("request");
+var WebScoketClient = require("websocket").client;
 
 router.route("/webhook").get(function (req, resp) {
     var token = req.query['hub.verify_token'];
@@ -55,26 +56,42 @@ router.route("/webhook").post(function(req, resp) {
     }, 200);
 });
 
-router.route("/carcode-webhook").post(function(req, resp){
-    var inquiryId = req.body.inquiryId;
-    var from = req.body.from;
-    console.log(from);
-    if (inquiryId === 1027499 && from === "+14159261311" ) {
-        var text = req.body.body;
-        var sender = text.split("@")[0];
-        var body = text.split("@")[1];
-        sendTextMessage(sender, body, resp);
-        console.log("Sender: "+sender + " Body " + body);
-    } else {
-        console.log("Received message from carcode: " + JSON.stringify(req.body));
-        resp.send("Ok");
-    }
+var client = new WebScoketClient();
+client.on("connectFailed", function(err) {
+    console.log('ws err');
 });
+
+client.on("connect", function(connection){
+    console.log("ws connected");
+
+    connection.on('error', function(error) {
+        console.log("Connection Error: " + error.toString());
+    });
+    connection.on('close', function() {
+        console.log('echo-protocol Connection Closed');
+    });
+    connection.on('message', function(message) {
+        if (message.type === 'utf8') {
+            var data = JSON.parse(message.utf8Data);
+            console.log("Received: '" + message.utf8Data + "'");
+            if (data.event === "reply") {
+                var text = data.data.body;
+                var sender = text.split("@")[0];
+                var body = text.split("@")[1];
+                sendTextMessage(sender, body);
+            }
+
+        }
+    });
+
+});
+
+client.connect('ws://api.carcode.com/ws/carcode/chat/customer/inquiry/1444763');
 
 var token = "CAAMBADbdWl0BAD4W66NCngjHeWOi5Y44UcmQuZCYv0c0RSrYJThzmc3KcrTnsDGg32sklteKzfKo4c5XEp0cTZCJNQfcSvZCZAvZBadgiaT9xQ1bLkYvhZAEfZBoPR1SWpBrv9gJzEkK2eCijj7J8vSdTIdZAs4pZC0NsYRoXdHW19MD3dLXlfyPJ2mCpn6Rj7X3GUQAsK1FKrwZDZD";
 
-function sendTextMessage(sender, text, resp) {
-    messageData = {
+function sendTextMessage(sender, text) {
+    var messageData = {
         text:text
     }
     request({
@@ -88,10 +105,8 @@ function sendTextMessage(sender, text, resp) {
     }, function(error, response, body) {
         if (error) {
             console.log('Error sending message: ', error);
-            resp.send("Ok");
         } else if (response.body.error) {
             console.log('Error: ', response.body.error);
-            resp.send("Ok");
         }
     });
 }

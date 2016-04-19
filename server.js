@@ -10,6 +10,9 @@ var dbRoutes = require('./routes/setupdbroute')
 var presetRoute = require('./routes/presetroute');
 var gradientRoute = require("./routes/gradientroute");
 var webhooks = require("./routes/webhooks.js");
+var client = require("socket.io-client");
+var WebSocket = require("ws");
+
 
 
 /**
@@ -111,6 +114,10 @@ var SampleApp = function() {
     self.initializeServer = function() {
 
         self.app = express();
+
+
+
+
 
         self.setUpMiddleware();
         self.setUpDb();
